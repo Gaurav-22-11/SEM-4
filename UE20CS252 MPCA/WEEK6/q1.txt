@@ -1,0 +1,30 @@
+.data
+a:.word 0,0,0,0,0,0,0,0,0
+
+.text
+	ldr r0,=a
+	mov r1,#0
+	mov r2,#0
+	mov r3,#3
+	mov r4,#4
+mov r7,#5
+	b loop
+loop:
+cmp r1,r2
+beq assign
+add r1,r1,#1
+mov r2,#0
+cmp r1,#3
+bne loop
+mov pc,lr
+
+assign:
+mla r5,r1,r3,r2
+mul r6,r4,r5
+str r7,[r0,r6]
+b l1
+
+l1: 
+add r2,r2,#1
+cmp r2,#3
+bne loop 

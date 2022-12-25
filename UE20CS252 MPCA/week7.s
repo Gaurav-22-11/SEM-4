@@ -1,0 +1,47 @@
+/*;sum of 32 bit .....
+
+.DATA 
+	A:.WORD 0X12345678	
+	B:.WORD 0			
+.TEXT
+	LDR R0,=A
+	LDR R6,=B
+	MOV R1,#15
+	LDR R2,[R0]
+	MOV R3,#8
+	MOV R5,#0
+L1:
+	ANDS R4,R1,R2			
+	ADDS R5,R5,R4
+	MOV R2,R2,LSR #4
+	SUB R3,R3,#1
+	CMP R3,#0
+	BNE L1
+	STR R5,[R6]
+	SWI 0X011
+*/
+;charecter ....
+
+.DATA
+	A:.ASCII "MUMBAI"
+	B:.ASCII "M"
+.TEXT
+	LDR R0,=A
+	LDR R1,=B
+	MOV R4,#0	;HOLDS THE COUNT VALUE
+	MOV R9,#0
+L:
+	LDRB R2,[R0],#1
+	LDRB R3,[R1]
+	CMP R2,R3
+	BEQ L1
+	ADD R9,R9,#1
+	CMP R9,#11
+	BNE L
+	SWI 0X011
+L1:
+	ADD R4,R4,#1
+	ADD R9,R9,#1
+	CMP R9,#11
+	BNE L
+	SWI 0X011
